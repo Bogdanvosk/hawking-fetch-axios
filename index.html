@@ -10,22 +10,17 @@
 </head>
 
 <body>
+
     <div class="page-wrapper">
-        <p>Введите свое имя пользователя на GitHub</p>
-        <form>
-            <input class="input-name js-input" type="text" name="name" placeholder="Введите свое имя GitHub">
-            <button class="load-button js-load"> Загрузить данные </button>
+        <form class="form">
+            <input type="text" class="input">
+            <button class="button">Submit</button>
         </form>
-
-        <div class="results-container js-results">
-        </div>
-
+        <p class="error">No errors</p>
     </div>
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
-    integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="scripts.js"></script>
 
 </html>

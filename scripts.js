@@ -1,37 +1,30 @@
-const loadBtn = document.querySelector(".js-load");
-const resultsContainer = document.querySelector(".js-results");
-const searchInput = document.querySelector(".js-input");
+const button = document.querySelector('.button')
+const errorParagraph = document.querySelector('.error')
+const input = document.querySelector('.input')
 
-loadBtn.addEventListener("click", function (evt) {
-  evt.preventDefault()
-  const searchValue = searchInput.value.trim().toLowerCase();
-  fetch(`https://api.github.com/users/${searchValue}`).then(
-    (res) => res.json()).then(data =>
-      resultsContainer.innerHTML =
-      `<div class="response-container">
-                <img src="${data.avatar_url}">
-                <p> Имя: <span>${data.name}</span><p>
-                <p> О себе: <span>${data.bio}</span><p>
-                <p> Кол-во репозиториев: <span>${data.public_repos}</span><p>
-            </div>`
-    ).finally(() => {
-      axios.get("https://jsonplaceholder.typicode.com/posts?_limit=5").then(({ data }) => {
-        const postsContainer = document.createElement('div');
-        postsContainer.classList.add('posts__container')
-        const posts = data.map(el => {
-          return (`
-          <div class="post">
-            <span class="post__id">Post #${el.id}</span>
-            <h3 class="post__title">${el.title}</h3>
-            <p class="post__body">${el.body}</p>
-          </div>
-          `)
-        })
-        postsContainer.innerHTML = posts.join('')
-        resultsContainer.append(postsContainer)
-      })
-    })
+const isNumeric = n => !!Number(n);
 
-});
+button.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  input.classList.remove('invalid')
+  errorParagraph.textContent = 'No errors';
+
+  const value = input.value.trim()
+
+  try {
+    if (value === '') {
+      throw "Input value is required"
+    } else if (!isNumeric(value)) {
+      throw "Input value must be a number"
+    } else if (value < 5 || value > 10) {
+      throw "Input value must be greater than 5 and less than 10"
+    }
+  } catch (error) {
+    console.log(error);
+    input.classList.add('invalid')
+    errorParagraph.textContent = error;
+  }
+})
 
 
