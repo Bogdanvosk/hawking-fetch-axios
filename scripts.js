@@ -21,7 +21,6 @@ button.addEventListener('click', (e) => {
       throw "Input value must be greater than 5 and less than 10"
     }
   } catch (error) {
-    console.log(error);
     input.classList.add('invalid')
     errorParagraph.textContent = error;
   }
