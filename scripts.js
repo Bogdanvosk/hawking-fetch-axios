@@ -1,29 +1,23 @@
-const button = document.querySelector('.button')
-const errorParagraph = document.querySelector('.error')
-const input = document.querySelector('.input')
-
-const isNumeric = n => !!Number(n);
-
-button.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  input.classList.remove('invalid')
-  errorParagraph.textContent = 'No errors';
-
-  const value = input.value.trim()
+async function lottery() {
+  console.log("Вы начали игру");
 
   try {
-    if (value === '') {
-      throw "Input value is required"
-    } else if (!isNumeric(value)) {
-      throw "Input value must be a number"
-    } else if (value < 5 || value > 10) {
-      throw "Input value must be greater than 5 and less than 10"
-    }
+    let promise = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        Math.random(0) > 0.5 ? resolve("Победа") : reject("вы промахнулись");
+      }, 1000);
+    });
+
+    const result = await promise;
+
+    console.log(result);
   } catch (error) {
-    input.classList.add('invalid')
-    errorParagraph.textContent = error;
+    console.log("К сожалению", error);
+  } finally {
+    console.log("Конечный код");
   }
-})
+}
+
+lottery();
 
 
