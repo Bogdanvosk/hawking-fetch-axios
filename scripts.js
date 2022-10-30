@@ -4,6 +4,12 @@ const input = document.querySelector('.input')
 
 const isNumeric = n => !!Number(n);
 
+class ValidationError {
+  constructor(message) {
+    this.message = message
+  }
+}
+
 button.addEventListener('click', (e) => {
   e.preventDefault();
 
@@ -14,15 +20,20 @@ button.addEventListener('click', (e) => {
 
   try {
     if (value === '') {
-      throw "Input value is required"
+      throw new ValidationError("Input value is required")
     } else if (!isNumeric(value)) {
-      throw "Input value must be a number"
+      throw new ValidationError("Input value must be a number")
     } else if (value < 5 || value > 10) {
-      throw "Input value must be greater than 5 and less than 10"
+      throw new ValidationError("Input value must be greater than 5 and less than 10")
     }
   } catch (error) {
-    input.classList.add('invalid')
-    errorParagraph.textContent = error;
+    if (error instanceof ValidationError) {
+      input.classList.add('invalid')
+      errorParagraph.textContent = error.message;
+    }
+    else {
+      throw error;
+    }
   }
 })
 
